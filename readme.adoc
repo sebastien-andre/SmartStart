@@ -1,0 +1,29 @@
+= SmartStart
+
+== Overview
+SmartStart is an application designed to enable QR code check-ins, real-time tracking, scheduling, and notifications for tutoring sessions.
+
+== Features
+- Dynamic QR Code Check-ins
+- Real-time Attendance Tracking
+- Scheduling System
+- Push Notifications
+- Offline Functionality
+
+== Installation
+To install and set up the project, follow these steps:
+
+. Clone the repository:
++
+[source,sh]
+----
+git clone https://github.com/sebastien-andre/SmartStart.git
+cd SmartStart
+----
+
+. Install dependencies:
++
+[source,sh]
+----
+pip install -r requirements.txt
+----
