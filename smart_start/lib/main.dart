@@ -16,3 +16,4 @@ class SmartStart extends StatelessWidget {
     );
   }
 }
+
