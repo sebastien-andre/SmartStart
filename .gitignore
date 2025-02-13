@@ -42,5 +42,23 @@ app.*.map.json
 /android/app/profile
 /android/app/release
 
-# Environment
-env/
+
+
+
+
+# All folders specific to environment
+/smart_start/macos/
+/smart_start/test/
+/smart_start/web/
+/smart_start/ios/
+/smart_start/linux/
+/smart_start/android/
+/smart_start/build/
+/smart_start/.dart_tool/
+/smart_start/windows/
+/smart_start/.idea/
+smart_start/.metadata
+
+smart_start/README.md
+smart_start/analysis_options.yaml
+smart_start/pubspec.lock
