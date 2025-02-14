@@ -13,17 +13,18 @@ SmartStart is an application designed to enable QR code check-ins, real-time tra
 == Installation
 To install and set up the project, follow these steps:
 
-. Clone the repository:
+. Clone the repository and setup flutter project:
 +
 [source,sh]
 ----
 git clone https://github.com/sebastien-andre/SmartStart.git
+flutter create smart_start
 cd SmartStart
-----
 
-. Install dependencies:
-+
-[source,sh]
-----
-pip install -r requirements.txt
+
+
+rm .gitignore
+
+
+cp -r source_directory/* destination_directory/
 ----
