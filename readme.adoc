@@ -18,13 +18,8 @@ To install and set up the project, follow these steps:
 [source,sh]
 ----
 git clone https://github.com/sebastien-andre/SmartStart.git
-flutter create smart_start
 cd SmartStart
-
-
-
+flutter create smart_start
+cd smart_start
 rm .gitignore
-
-
-cp -r source_directory/* destination_directory/
 ----
