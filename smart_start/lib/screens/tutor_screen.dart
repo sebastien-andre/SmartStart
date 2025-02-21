@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'schedule_session_screen.dart';
-import 'scan_qr_code_screen.dart';
+import 'generate_qr_code_screen.dart';
 import 'settings_screen.dart';
 
 class TutorScreen extends StatelessWidget {
@@ -49,7 +49,7 @@ class TutorScreen extends StatelessWidget {
                  onPressed: () {
                    Navigator.push(
                      context,
-                     MaterialPageRoute(builder: (context) => ScanQRCodeScreen()),
+                     MaterialPageRoute(builder: (context) => GenerateQRCodeScreen()),
                    );
                  },
                  style: ElevatedButton.styleFrom(
@@ -59,7 +59,7 @@ class TutorScreen extends StatelessWidget {
                      borderRadius: BorderRadius.circular(10.0),
                    ),
                  ),
-                 child: Text('GenerateQR Code'),
+                 child: Text('Generate QR Code'),
                ),
              ),
              SizedBox(height: 20),
