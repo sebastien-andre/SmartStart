@@ -10,10 +10,19 @@ class RegisterScreen extends StatelessWidget {
    String email = emailController.text;
 
 
-   // Show a snack bar confirming registration and navigate to the verification screen
    ScaffoldMessenger.of(context).showSnackBar(
-     SnackBar(content: Text('A verification code has been sent to $email')),
-   );
+  SnackBar(
+    content: Text(
+      'A verification code has been sent to $email',
+      style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+    ),
+    backgroundColor: Color(0xFF001F3F), // Navy Blue
+    behavior: SnackBarBehavior.floating,
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(10.0),
+    ),
+  ),
+);
 
 
    Navigator.push(

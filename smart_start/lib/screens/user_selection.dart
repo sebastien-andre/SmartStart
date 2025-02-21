@@ -11,19 +11,16 @@ class UserSelectionScreen extends StatelessWidget {
       ),
       body: Stack(
         children: [
-          Positioned(
-            top: 0,
-            left: 0,
-            right: 0,
-            bottom: 0,
+          /// Background watermark with scaling
+          Positioned.fill(
             child: Opacity(
-              opacity: 0.35,
+              opacity: 0.35, // Adjust opacity for a subtle watermark effect
               child: Transform.scale(
-                scale: 3.0,
+                scale: 3.0, // Adjust zoom level here
                 child: Center(
                   child: Image.asset(
-                    'assets/images/water_mark_logo.png',
-                    fit: BoxFit.contain,
+                    'assets/images/water_mark_logo.png', // Ensure correct asset path
+                    fit: BoxFit.cover, // Adjusted for full-screen watermark
                     errorBuilder: (context, object, stackTrace) {
                       return const Text('Watermark Image Not Found!');
                     },
@@ -32,6 +29,8 @@ class UserSelectionScreen extends StatelessWidget {
               ),
             ),
           ),
+          
+          /// Main content (text & buttons)
           Center(
             child: Padding(
               padding: const EdgeInsets.all(20.0),
@@ -40,19 +39,15 @@ class UserSelectionScreen extends StatelessWidget {
                 children: [
                   Text(
                     'Welcome',
-                    style: TextStyle(
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold,
-                      color: Theme.of(context).primaryColor,
+                    style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                      color: Theme.of(context).colorScheme.onBackground, // Matches the rest of the theme
                     ),
                     textAlign: TextAlign.center,
                   ),
                   Text(
                     'Are you a Student or a Tutor?',
-                    style: TextStyle(
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold,
-                      color: Theme.of(context).primaryColor,
+                    style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                      color: Theme.of(context).colorScheme.onBackground, // Matches the rest of the theme
                     ),
                     textAlign: TextAlign.center,
                   ),
@@ -102,20 +97,10 @@ class UserSelectionScreen extends StatelessWidget {
       onPressed: () {
         Navigator.push(
           context,
-          MaterialPageRoute(
-              builder: (context) => LoginScreen(userType: userType)),
+          MaterialPageRoute(builder: (context) => LoginScreen(userType: userType)),
         );
       },
-      style: ElevatedButton.styleFrom(
-        padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
-        textStyle: const TextStyle(fontSize: 20),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10.0),
-        ),
-      ),
-      child: Center(
-        child: Text(userType),
-      ),
+      child: Text(userType),
     );
   }
 }

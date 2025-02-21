@@ -7,16 +7,42 @@ class VerificationScreen extends StatelessWidget {
   final TextEditingController verificationCodeController = TextEditingController();
 
   void _verify(BuildContext context) {
-    if (verificationCodeController.text == "123456") {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Verification successful!')));
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => LoginScreen(userType: 'Student')),
-      );
-    } else {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Invalid verification code')));
-    }
+  if (verificationCodeController.text == "123") {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(
+          'Verification successful!',
+          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+        ),
+        backgroundColor: Color(0xFF001F3F), // Navy Blue
+        behavior: SnackBarBehavior.floating,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10.0),
+        ),
+      ),
+    );
+
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(builder: (context) => LoginScreen(userType: 'Student')),
+    );
+  } else {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(
+          'Invalid verification code',
+          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+        ),
+        backgroundColor: Color(0xFF001F3F), // Navy Blue
+        behavior: SnackBarBehavior.floating,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10.0),
+        ),
+      ),
+    );
   }
+}
+
 
   @override
 Widget build(BuildContext context) {
