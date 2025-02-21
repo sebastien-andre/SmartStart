@@ -1,3 +1,5 @@
+USE smart_start;
+
 CREATE TABLE codes (
     code VARCHAR(6) PRIMARY KEY,
     email VARCHAR(255) NOT NULL,

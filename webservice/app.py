@@ -7,12 +7,11 @@ import datetime
 
 app = Flask(__name__)
 
-# MySQL configuration - update with your credentials and database name
 db_config = {
-    'user': 'your_username',
-    'password': 'your_password',
+    'user': 'root',
+    'password': '3kAF9saj!!!',
     'host': 'localhost',
-    'database': 'your_database'
+    'database': 'smart_start'
 }
 
 def get_db_connection():
@@ -20,9 +19,9 @@ def get_db_connection():
 
 def send_email(recipient, subject, message):
     # Update with your SMTP server details
-    sender = "your_email@example.com"
-    sender_password = "your_email_password"
-    smtp_server = "smtp.example.com"
+    sender = "socr456@gmail.com"
+    sender_password = "xppd mmul flih inaq"
+    smtp_server = "smtp.gmail.com"
     smtp_port = 587
 
     msg = MIMEText(message)
@@ -65,6 +64,7 @@ def send_verification():
     code = None
     while True:
         candidate = str(random.randint(100000, 999999))
+        print(candidate)
         cursor.execute("SELECT code FROM codes WHERE code = %s", (candidate,))
         if not cursor.fetchone():
             code = candidate
@@ -74,7 +74,6 @@ def send_verification():
 
     try:
         # Insert the code into the codes table.
-        # It is assumed that the 'code' column is set as PRIMARY KEY.
         cursor.execute(
             "INSERT INTO codes (code, email, type, created_at) VALUES (%s, %s, %s, %s)",
             (code, email, user_type, now)
@@ -97,6 +96,8 @@ def send_verification():
 
     return jsonify({"status": "success", "message": "Verification code sent"}), 200
 
+
+
 @app.route('/verify_code', methods=['POST'])
 def verify_code():
     data = request.get_json()
@@ -105,6 +106,7 @@ def verify_code():
     conn = get_db_connection()
     cursor = conn.cursor(dictionary=True)
 
+    # Retrieve the code record
     cursor.execute("SELECT * FROM codes WHERE code = %s", (code,))
     record = cursor.fetchone()
 
@@ -116,7 +118,7 @@ def verify_code():
     created_at = record['created_at']
     now = datetime.datetime.now()
 
-    # Check if the code is older than 20 minutes
+    # Check if the code has expired (older than 20 minutes)
     if now - created_at > datetime.timedelta(minutes=20):
         cursor.execute("DELETE FROM codes WHERE code = %s", (code,))
         conn.commit()
@@ -124,17 +126,31 @@ def verify_code():
         conn.close()
         return jsonify({"status": "failure", "message": "Expired code"}), 400
 
-    # Code is valid; add the user to the 'users' table.
     email = record['email']
     user_type = record['type']
+
+    # Check if the user already exists in the 'users' table
+    cursor.execute("SELECT * FROM users WHERE email = %s", (email,))
+    existing_user = cursor.fetchone()
+
+    if existing_user:
+        # User already exists; remove the verification code and return a message.
+        cursor.execute("DELETE FROM codes WHERE code = %s", (code,))
+        conn.commit()
+        cursor.close()
+        conn.close()
+        return jsonify({"status": "success", "message": "User already exists"}), 200
+
+    # User does not exist; create a new record in the 'users' table.
     try:
         cursor.execute(
             "INSERT INTO users (email, type, created_at) VALUES (%s, %s, %s)",
             (email, user_type, now)
         )
-        # Remove the code after successful verification.
-        cursor.execute("DELETE FROM codes WHERE code = %s", (code,))
+        # # Remove the verification code after successful verification.
+        # cursor.execute("DELETE FROM codes WHERE code = %s", (code,))
         conn.commit()
+        return jsonify({"status": "success", "message": "User verified and created"}), 200
     except Exception as e:
         conn.rollback()
         return jsonify({"status": "failure", "message": "Database error"}), 500
@@ -142,9 +158,9 @@ def verify_code():
         cursor.close()
         conn.close()
 
-    return jsonify({"status": "success", "message": "User verified and created"}), 200
+
+
 
 if __name__ == '__main__':
-    # Bind to 0.0.0.0 so that the service is accessible on your network.
-    app.run(host='0.0.0.0', port=5000, debug=True)
+    app.run(host='0.0.0.0', port=8000, debug=True)
 
