@@ -62,3 +62,7 @@ smart_start/.metadata
 smart_start/README.md
 smart_start/analysis_options.yaml
 smart_start/pubspec.lock
+
+
+# python virtual environment
+/env/
